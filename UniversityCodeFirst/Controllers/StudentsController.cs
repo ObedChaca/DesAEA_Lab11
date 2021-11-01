@@ -18,7 +18,7 @@ namespace UniversityCodeFirst.Controllers
         // GET: Students
         public ActionResult Index()
         {
-            return View(db.Students.ToList());
+            return View(db.Students.Where(x => x.Enable==true).ToList());
         }
 
         // GET: Students/Details/5
@@ -51,6 +51,7 @@ namespace UniversityCodeFirst.Controllers
         {
             if (ModelState.IsValid)
             {
+                student.Enable = true;
                 db.People.Add(student);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -111,7 +112,8 @@ namespace UniversityCodeFirst.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Student student = db.Students.Find(id);
-            db.People.Remove(student);
+            db.Entry(student).State = EntityState.Modified;
+            student.Enable = false;
             db.SaveChanges();
             return RedirectToAction("Index");
         }

@@ -14,6 +14,9 @@ namespace UniversityCodeFirst.Models
         [Display(Name = "Enrollment Date")]
         public DateTime EnrollmentDate { get; set; }
 
+        [Display(Name = "Enable")]
+        public Boolean Enable { get; set; }
+
         public virtual ICollection<Enrollment> Enrollments { get; set; }
     }
 }
